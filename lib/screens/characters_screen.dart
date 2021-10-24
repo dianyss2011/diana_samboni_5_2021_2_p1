@@ -28,6 +28,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF9dd9df),
         title: Text('Personajes'),
         actions: <Widget>[
           _isFiltered
@@ -87,17 +88,15 @@ class _CharactersScreenState extends State<CharactersScreen> {
           child: InkWell(
             onTap: () => _getCharacteres(),
             child: Container(
-              margin: EdgeInsets.all(10),
-              padding: EdgeInsets.all(5),
+              padding: EdgeInsets.all(10),
               child: Row(
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(40),
                     child: FadeInImage(
                       placeholder: AssetImage('assets/rick_and_morty.PNG'), 
                       image: NetworkImage(e.image),
-                      width: 80,
-                      height: 80,
+                      width: 100,
+                      height: 100,
                       fit: BoxFit.cover
                     ),
                   ),
@@ -112,8 +111,9 @@ class _CharactersScreenState extends State<CharactersScreen> {
                               Text(
                                 e.name, 
                                 style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF9dd9df),
                                 ),
                               ),
                             ],
