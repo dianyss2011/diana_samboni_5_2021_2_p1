@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/helpers/api_helper.dart';
 import 'package:rick_and_morty_app/models/character.dart';
 import 'package:rick_and_morty_app/models/response.dart';
+import 'package:rick_and_morty_app/screens/character_screen.dart';
 
 class CharactersScreen extends StatefulWidget {
   const CharactersScreen({ Key? key }) : super(key: key);
@@ -86,7 +87,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
       children: _characters.map((e) {
         return Card(
           child: InkWell(
-            onTap: () => _getCharacteres(),
+            onTap: () => _goInfoCharacter(e),
             child: Container(
               padding: EdgeInsets.all(10),
               child: Row(
@@ -200,5 +201,20 @@ class _CharactersScreenState extends State<CharactersScreen> {
     });
 
     Navigator.of(context).pop();
+  }
+
+  _goInfoCharacter(Character e) async {
+    String? result = await Navigator.push(
+      context, 
+      MaterialPageRoute(
+        builder: (context) => CharacterScreen(
+          character: e,
+        )
+      )
+    );
+    
+    if (result == 'yes') {
+      _getCharacteres();
+    }
   }
 }
