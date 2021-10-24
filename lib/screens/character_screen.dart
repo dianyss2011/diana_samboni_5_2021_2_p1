@@ -243,7 +243,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: 20),
                       Row(
                         children: <Widget>[
                           Text(
