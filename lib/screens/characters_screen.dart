@@ -7,7 +7,8 @@ import 'package:rick_and_morty_app/models/response.dart';
 import 'package:rick_and_morty_app/screens/character_screen.dart';
 
 class CharactersScreen extends StatefulWidget {
-  const CharactersScreen({ Key? key }) : super(key: key);
+
+  CharactersScreen({ Key? key }) : super(key: key);
 
   @override
   _CharactersScreenState createState() => _CharactersScreenState();
@@ -47,6 +48,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
     );
   }
 
+
    Future<Null> _getCharacteres() async {
 
     var connectivityResult = await Connectivity().checkConnectivity();
@@ -64,7 +66,6 @@ class _CharactersScreenState extends State<CharactersScreen> {
     }
 
     Response response = await ApiHelper.getCharacters();
-
     if (!response.isSuccess) {
       await showAlertDialog(
         context: context,
@@ -134,10 +135,12 @@ class _CharactersScreenState extends State<CharactersScreen> {
   }
 
   void _removeFilter() {
-    setState(() {
-      _isFiltered = false;
-    });
 
+    setState(() {
+
+      _isFiltered = false;
+
+    });
     _getCharacteres();
   }
 
@@ -212,7 +215,6 @@ class _CharactersScreenState extends State<CharactersScreen> {
         )
       )
     );
-    
     if (result == 'yes') {
       _getCharacteres();
     }
