@@ -18,14 +18,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Rick and Morty App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Personajes'),
-        ),
-        body: Center(
-          child: CharactersScreen()
-        ),
-      ),
+      home: CharactersScreen()
     );
   }
 

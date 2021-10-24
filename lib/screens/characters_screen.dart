@@ -15,6 +15,8 @@ class CharactersScreen extends StatefulWidget {
 class _CharactersScreenState extends State<CharactersScreen> {
 
   List<Character> _characters = [];
+  bool _isFiltered = false;
+  String _search = '';
 
   @override
   void initState() {
@@ -24,8 +26,22 @@ class _CharactersScreenState extends State<CharactersScreen> {
   
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: _getContent(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Personajes'),
+        actions: <Widget>[
+          _isFiltered
+          ? IconButton(
+              onPressed: _removeFilter, 
+              icon: Icon(Icons.filter_none)
+            )
+          : IconButton(
+              onPressed: _showFilter, 
+              icon: Icon(Icons.filter_alt)
+            ),
+        ],
+      ),
+      body: _getContent(),
     );
   }
 
@@ -114,5 +130,75 @@ class _CharactersScreenState extends State<CharactersScreen> {
         );
       }).toList(),
     );
+  }
+
+  void _removeFilter() {
+    setState(() {
+      _isFiltered = false;
+    });
+
+    _getCharacteres();
+  }
+
+  void _showFilter() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)
+          ),
+          title: Text('Filtrar Personaje'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text('Escriba las primeras letras del nombre del personaje'),
+              SizedBox(height: 10),
+              TextField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  hintText: 'Criterio de búsqueda',
+                  labelText: 'Buscar',
+                  suffixIcon: Icon(Icons.search)
+                ),
+                onChanged: (value) {
+                  _search = value;
+                }
+              )
+            ]
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('Cancelar')
+            ),
+            TextButton(
+              onPressed: () => _filter(),
+              child: Text('Filtrar')
+            )
+          ],
+        );
+      }
+    );
+  }
+
+  void _filter() {
+    if (_search.isEmpty) {
+      return;
+    }
+
+    List<Character> filteredList = [];
+    for (var character in _characters) {
+      if (character.name.toLowerCase().contains(_search.toLowerCase())) {
+        filteredList.add(character);
+      }
+    }
+
+    setState(() {
+      _characters = filteredList;
+      _isFiltered = true;
+    });
+
+    Navigator.of(context).pop();
   }
 }
